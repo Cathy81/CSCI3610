@@ -1,18 +1,19 @@
-var total=0
+
 var app=angular.module("cartApp",[]);
-app.controller('cartCtrl', function($scope,$http){
+app.controller('cartCtrl', function($scope,$http,$window){
     // Q1) add two more pizza objects 
-    //ajax call
     $http({
-      method: 'GET',
-      url: '/menu'
-    }).then(function successCallback(response) {
-    $scope.pizzas=response.data;
+  method: 'GET',
+  url: '/menu'
+}).then(function successCallback(response) {
+    $scope.pizzas=response.data
   }, function errorCallback(response) {
     $scope.pizzas=[]
   });
-    
-
+   
+   // $scope.phone=""
+   // $scope.email=""
+    $scope.msg="Items in cart"
     // add two variables: cart, and total for web page cart.html
  	$scope.cart=JSON.parse(localStorage.getItem("cart"))
     if($scope.cart==null)
@@ -30,7 +31,7 @@ app.controller('cartCtrl', function($scope,$http){
 
 //Q2: addToCart() function
 $scope.addToCart=function(item){
-    let index=$scope.cart.findIndex(x=>x.name==item.name)
+    let index=$scope.cart.findIndex(x=>x.pizzaName==item.pizzaName)
     if(index==-1)//-1 means item is not in the cart
     {
         item.quantity=1
@@ -59,5 +60,11 @@ $scope.clearCart=function(){
 
 //Q5: calcTotalPrice() function
 
-	
+
+//checkout function: redirect to checkout.html	
+
+
+//placeOrder: send cart, phone and email to the server. 
+
+   
 })
